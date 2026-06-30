@@ -2,7 +2,7 @@ import OffersList from '@/components/Offers-list/Offers-list';
 import Header from '@/components/Header/Header';
 import { OfferPreview } from '@/types/offer';
 import SortingOptions from '@/components/Sorting-options/Sorting-options';
-import CitiesList from '@/components/Cities-list/Cities-list';
+import CitiesList from '@/components//Cities-list/Cities-list';
 import Map from '@/components/Map/Map';
 
 type MainPageProps = {

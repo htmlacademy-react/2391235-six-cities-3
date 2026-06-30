@@ -1,4 +1,4 @@
-import Logo from '@/components/Logo/logo';
+import Logo from '@/components/Logo/Logo';
 
 function Header(): JSX.Element {
   return (
