@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-import PrivateRoute from '@/components/private-route/private-route';
-import FavoritesPage from '@/pages/FavoritesPage';
-import LoginPage from '@/pages/LoginPage';
-import MainPage from '@/pages/MainPage';
-import NotFoundPage from '@/pages/NotFoundPage';
-import OfferPage from '@/pages/OfferPage';
-import { OfferPreview } from '@/types/offer-preview';
+import PrivateRoute from '@/components/Private-route/Private-route';
+import FavoritesPage from '@/pages/favorites-page';
+import LoginPage from '@/pages/login-page';
+import MainPage from '@/pages/main-page';
+import NotFoundPage from '@/pages/notFound-page';
+import OfferPage from '@/pages/offer-page';
+import { OfferPreview } from '@/types/offer';
+import { AppRoute } from '@/const';
 
 type AppProps = {
   offers: OfferPreview[];
@@ -15,15 +15,15 @@ type AppProps = {
 function App({ offers }: AppProps): JSX.Element {
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: AppRoute.Main,
       element: <MainPage offers={offers} />,
     },
     {
-      path: '/login',
+      path: AppRoute.Login,
       element: <LoginPage />,
     },
     {
-      path: '/favorites',
+      path: AppRoute.Favorites,
       element: (
         <PrivateRoute isAuthorized={false}>
           <FavoritesPage />
@@ -31,7 +31,7 @@ function App({ offers }: AppProps): JSX.Element {
       ),
     },
     {
-      path: '/offer/:id',
+      path:  AppRoute.Offer,
       element: <OfferPage />,
     },
     {
