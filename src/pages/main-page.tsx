@@ -1,9 +1,9 @@
-import OffersList from '@/components/Offers-list/Offers-list';
-import Header from '@/components/Header/Header';
+import OffersList from '@/components/offers-list/offers-list';
+import Header from '@/components/header/header';
 import { OfferPreview } from '@/types/offer';
-import SortingOptions from '@/components/Sorting-options/Sorting-options';
-import CitiesList from '@/components//Cities-list/Cities-list';
-import Map from '@/components/Map/Map';
+import SortingOptions from '@/components/sorting-options/sorting-options';
+import CitiesList from '@/components/cities-list/cities-list';
+import Map from '@/components/map/map';
 
 type MainPageProps = {
   offers: OfferPreview[];

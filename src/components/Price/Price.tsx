@@ -1,4 +1,4 @@
-import BookmarkButton from '@/components/Bookmark-button/Bookmark-button';
+import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 
 type PriceProps = {
   price: number;

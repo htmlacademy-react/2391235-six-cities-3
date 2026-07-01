@@ -1,9 +1,10 @@
 import { OfferPreview } from '@/types/offer';
 import getRatingWidth from '@/utils/get-rating-width';
 import getOfferType from '@/utils/get-offer-type';
-import Badge from '@/components/Badge/Badge';
-import Price from '@/components/Price/Price';
+import Badge from '@/components/badge/badge';
+import Price from '@/components/price/price';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 type CardType = 'cities' | 'favorites' | 'near-places';
 
@@ -62,14 +63,14 @@ function OfferCard({
     >
       {offer.isPremium && <Badge text="Premium" />}
       <div className={clsx(imageWrapperClasses[cardType], 'place-card__image-wrapper')}>
-        <a href="#todo">
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image"
             src={offer.previewImage}
             width={imageSize.width}
             height={imageSize.height}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className={clsx(infoClasses[cardType], 'place-card__info')}>
         <Price
@@ -83,7 +84,9 @@ function OfferCard({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#todo">{offer.title}</a>
+          <Link to={`/offer/${offer.id}`}>
+            {offer.title}
+          </Link>
         </h2>
         <p className="place-card__type">
           {getOfferType(offer.type)}

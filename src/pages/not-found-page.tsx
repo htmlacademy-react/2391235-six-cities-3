@@ -1,4 +1,6 @@
-import Header from '@/components/Header/Header';
+import Header from '@/components/header/header';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '@/const';
 
 function NotFoundPage(): JSX.Element {
   return (
@@ -12,9 +14,9 @@ function NotFoundPage(): JSX.Element {
               <h1>404 Not Found</h1>
               <p>The page you are looking for does not exist.</p>
 
-              <a href="/">
+              <Link to={AppRoute.Main}>
                 Go to main page
-              </a>
+              </Link>
             </section>
           </div>
         </div>
