@@ -1,24 +1,22 @@
 import { useState } from 'react';
 
 import OfferCard from '@/components/offer-card/offer-card';
-import { OfferPreview } from '@/types/offer-preview';
+import { OfferPreview } from '@/types/offer';
 
 type OffersListProps = {
   offers: OfferPreview[];
 };
 
 function OffersList({ offers }: OffersListProps): JSX.Element {
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  // TODO: activeOfferId will be used in Map component.
+  const [, setActiveOfferId] = useState<string | null>(null);
 
   return (
-    <div className="cities__places-list places__list tabs__content"
-      data-active-offer-id={activeOfferId ?? undefined}
-    >
+    <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
           offer={offer}
+          cardType="cities"
           onMouseEnter={() => setActiveOfferId(offer.id)}
           onMouseLeave={() => setActiveOfferId(null)}
         />
