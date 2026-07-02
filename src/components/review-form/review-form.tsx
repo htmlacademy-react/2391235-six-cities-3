@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import { ChangeEvent, Fragment, useState } from 'react';
+import { RATINGS, CommentFieldValidation } from './const';
 
 function ReviewForm(): JSX.Element {
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState('');
+  const [formData, setFormData] = useState({
+    rating: 0,
+    review: '',
+  });
 
-  const ratings = [
-    { value: 5, title: 'perfect' },
-    { value: 4, title: 'good' },
-    { value: 3, title: 'not bad' },
-    { value: 2, title: 'badly' },
-    { value: 1, title: 'terribly' },
-  ];
+  const handleChange = (
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = evt.target;
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: name === 'rating' ? Number(value) : value,
+    }));
+  };
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -19,16 +25,16 @@ function ReviewForm(): JSX.Element {
       </label>
 
       <div className="reviews__rating-form form__rating">
-        {ratings.map(({ value, title }) => (
-          <React.Fragment key={value}>
+        {RATINGS.map(({ value, title }) => (
+          <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
               value={value}
               id={`${value}-stars`}
               type="radio"
-              checked={rating === value}
-              onChange={() => setRating(value)}
+              checked={formData.rating === value}
+              onChange={handleChange}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -39,7 +45,7 @@ function ReviewForm(): JSX.Element {
                 <use xlinkHref="#icon-star" />
               </svg>
             </label>
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
 
@@ -48,18 +54,28 @@ function ReviewForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={review}
-        onChange={(evt) => setReview(evt.target.value)}
+        value={formData.review}
+        onChange={handleChange}
       />
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe your stay
-          with at least <b className="reviews__text-amount">50 characters</b>.
+          with at least{' '}
+          <b className="reviews__text-amount">
+            {CommentFieldValidation.Min} characters
+          </b>.
         </p>
 
-        <button className="reviews__submit form__submit button" type="submit" disabled>
+        <button className="reviews__submit form__submit button"
+          type="submit"
+          disabled={
+            formData.rating === 0 ||
+            formData.review.length < CommentFieldValidation.Min ||
+            formData.review.length > CommentFieldValidation.Max
+          }
+        >
           Submit
         </button>
       </div>
