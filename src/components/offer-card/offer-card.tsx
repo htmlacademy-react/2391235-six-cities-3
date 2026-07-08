@@ -11,8 +11,8 @@ type CardType = 'cities' | 'favorites' | 'near-places';
 type OfferCardProps = {
   offer: OfferPreview;
   cardType: CardType;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 };
 
 const imageSizes: Record<CardType, { width: number; height: number }> = {

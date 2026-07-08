@@ -4,12 +4,14 @@ import { OfferPreview } from '@/types/offer';
 import SortingOptions from '@/components/sorting-options/sorting-options';
 import CitiesList from '@/components/cities-list/cities-list';
 import Map from '@/components/map/map';
+import { useState } from 'react';
 
 type MainPageProps = {
   offers: OfferPreview[];
 };
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -26,11 +28,17 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
 
               <SortingOptions />
 
-              <OffersList offers={offers} />
+              <OffersList
+                offers={offers}
+                onOfferHover={setActiveOfferId}
+              />
             </section>
 
             <div className="cities__right-section">
-              <Map offers={offers} />
+              <Map
+                offers={offers}
+                activeOfferId={activeOfferId}
+              />
             </div>
           </div>
         </div>
