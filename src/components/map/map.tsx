@@ -1,6 +1,82 @@
-function Map(): JSX.Element {
+import { useEffect, useRef } from 'react';
+import leaflet from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import useMap from '@/hooks/use-map';
+import { OfferPreview } from '@/types/offer';
+
+const defaultCustomIcon = leaflet.icon({
+  iconUrl: '/img/pin.svg',
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39],
+});
+
+const activeCustomIcon = leaflet.icon({
+  iconUrl: '/img/pin-active.svg',
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39],
+});
+
+type MapProps = {
+  offers: OfferPreview[];
+  activeOfferId?: string | null;
+};
+
+function Map({ offers, activeOfferId }: MapProps): JSX.Element {
+  const mapRef = useRef<HTMLDivElement | null>(null);
+
+  const map = useMap(
+    mapRef,
+    offers[0].city.location
+  );
+
+  const city = offers[0].city.location;
+
+  useEffect(() => {
+
+    if (map) {
+      map.setView(
+        [
+          city.latitude,
+          city.longitude,
+        ],
+        city.zoom
+      );
+    }
+  }, [map, city]);
+
+  useEffect(() => {
+    if (map) {
+      const markerLayer = leaflet.layerGroup().addTo(map);
+
+      offers.forEach((offer) => {
+        leaflet
+          .marker(
+            [
+              offer.location.latitude,
+              offer.location.longitude,
+            ],
+            {
+              icon:
+                offer.id === activeOfferId
+                  ? activeCustomIcon
+                  : defaultCustomIcon,
+            }
+          )
+          .addTo(markerLayer);
+      });
+
+      return () => {
+        markerLayer.clearLayers();
+      };
+    }
+  }, [map, offers, activeOfferId]);
+
   return (
-    <section className="cities__map map"></section>
+    <section
+      className="cities__map map"
+      ref={mapRef}
+    >
+    </section>
   );
 }
 
