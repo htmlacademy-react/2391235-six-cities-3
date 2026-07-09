@@ -19,9 +19,10 @@ const activeCustomIcon = leaflet.icon({
 type MapProps = {
   offers: OfferPreview[];
   activeOfferId?: string | null;
+  className: string;
 };
 
-function Map({ offers, activeOfferId }: MapProps): JSX.Element {
+function Map({ offers, activeOfferId, className }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   const map = useMap(
@@ -73,7 +74,7 @@ function Map({ offers, activeOfferId }: MapProps): JSX.Element {
 
   return (
     <section
-      className="cities__map map"
+      className={className}
       ref={mapRef}
     >
     </section>

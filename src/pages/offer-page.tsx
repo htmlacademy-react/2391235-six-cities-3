@@ -1,15 +1,18 @@
 import Header from '@/components/header/header';
 import OfferGallery from '@/components/offer-gallery/offer-gallery';
 import OfferHost from '@/components/offer-host/offer-host';
-import OfferReviews from '@/components/offer-reviews/offer-reviews';
-import NearPlacesList from '@/components/near-places-list/near-places-list';
 import { OfferPreview } from '@/types/offer';
+import ReviewsList from '@/components/reviews-list/reviews-list';
+import comments from '@/mocks/comments';
+import Map from '@/components/map/map';
+import OffersList from '@/components/offers-list/offers-list';
 
 type OfferPageProps = {
   offers: OfferPreview[];
 };
 
 function OfferPage({ offers }: OfferPageProps): JSX.Element {
+  const nearOffers = offers.slice(0, 3);
   return (
     <div className="page">
       <Header />
@@ -72,16 +75,27 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
 
               <OfferHost />
-
-              <OfferReviews />
+              <ReviewsList reviews={comments} />
             </div>
           </div>
 
-          <section className="offer__map map"></section>
+          <Map
+            offers={nearOffers}
+            className="offer__map map"
+          />
         </section>
 
         <div className="container">
-          <NearPlacesList offers={offers} />
+          <section className="near-places places">
+            <h2 className="near-places__title">
+              Other places in the neighbourhood
+            </h2>
+
+            <OffersList
+              offers={nearOffers}
+              cardType="near-places"
+            />
+          </section>
         </div>
       </main>
     </div>
