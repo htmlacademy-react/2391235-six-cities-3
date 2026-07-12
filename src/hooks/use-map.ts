@@ -1,37 +1,50 @@
-import { useEffect, useRef, RefObject } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import leaflet from 'leaflet';
+
+type CityLocation = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
 
 function useMap(
   mapRef: RefObject<HTMLElement>,
-  city: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  }
-) {
-  const mapInstanceRef = useRef<leaflet.Map | null>(null);
+  cityLocation: CityLocation
+): leaflet.Map | null {
+  const [map, setMap] = useState<leaflet.Map | null>(null);
 
   useEffect(() => {
-    if (mapRef.current !== null && mapInstanceRef.current === null) {
-      const map = leaflet.map(mapRef.current);
-
-      map.setView(
-        [
-          city.latitude,
-          city.longitude,
-        ],
-        city.zoom
-      );
-
-      leaflet
-        .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-        .addTo(map);
-
-      mapInstanceRef.current = map;
+    if (mapRef.current === null) {
+      return;
     }
-  }, [mapRef, city]);
 
-  return mapInstanceRef.current;
+    const mapInstance = leaflet.map(mapRef.current);
+
+    mapInstance.setView(
+      [
+        cityLocation.latitude,
+        cityLocation.longitude,
+      ],
+      cityLocation.zoom
+    );
+
+    leaflet
+      .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+      .addTo(mapInstance);
+
+    setMap(mapInstance);
+
+    return () => {
+      mapInstance.remove();
+    };
+  }, [
+    mapRef,
+    cityLocation.latitude,
+    cityLocation.longitude,
+    cityLocation.zoom,
+  ]);
+
+  return map;
 }
 
 export default useMap;

@@ -36,3 +36,11 @@ export type Offer = OfferPreview & {
   images: string[];
   maxAdults: number;
 };
+
+export type Comment = {
+  id: string;
+  date: string;
+  user: Host;
+  comment: string;
+  rating: number;
+};

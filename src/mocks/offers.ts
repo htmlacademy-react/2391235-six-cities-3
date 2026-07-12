@@ -1,6 +1,6 @@
-import { OfferPreview } from '@/types/offer';
+import { Offer } from '@/types/offer';
 
-const offers: OfferPreview[] = [
+const offers: Offer[] = [
   {
     id: '1',
     title: 'Beautiful & luxurious studio at great location',
@@ -21,8 +21,23 @@ const offers: OfferPreview[] = [
     },
     isFavorite: false,
     isPremium: true,
-    rating: 4,
+    rating: 4.8,
     previewImage: 'img/apartment-01.jpg',
+    description:
+      'A quiet cozy and picturesque place in Amsterdam.',
+    bedrooms: 3,
+    goods: ['Wi-Fi', 'Heating', 'Kitchen'],
+    host: {
+      name: 'Angelina',
+      avatarUrl: 'img/avatar-angelina.jpg',
+      isPro: true,
+    },
+    images: [
+      'img/room.jpg',
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+    ],
+    maxAdults: 4,
   },
   {
     id: '2',
@@ -46,6 +61,21 @@ const offers: OfferPreview[] = [
     isPremium: false,
     rating: 4,
     previewImage: 'img/room.jpg',
+    description:
+      'A stylish room with warm wooden details and a calm atmosphere.',
+    bedrooms: 1,
+    goods: ['Wi-Fi', 'Towels', 'Heating'],
+    host: {
+      name: 'Max',
+      avatarUrl: 'img/avatar-max.jpg',
+      isPro: false,
+    },
+    images: [
+      'img/room.jpg',
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+    ],
+    maxAdults: 2,
   },
   {
     id: '3',
@@ -69,6 +99,21 @@ const offers: OfferPreview[] = [
     isPremium: false,
     rating: 4,
     previewImage: 'img/apartment-02.jpg',
+    description:
+      'A bright apartment with a beautiful canal view and comfortable rooms.',
+    bedrooms: 2,
+    goods: ['Wi-Fi', 'Kitchen', 'Coffee machine'],
+    host: {
+      name: 'Angelina',
+      avatarUrl: 'img/avatar-angelina.jpg',
+      isPro: true,
+    },
+    images: [
+      'img/apartment-02.jpg',
+      'img/apartment-01.jpg',
+      'img/room.jpg',
+    ],
+    maxAdults: 3,
   },
   {
     id: '4',
@@ -92,6 +137,21 @@ const offers: OfferPreview[] = [
     isPremium: true,
     rating: 5,
     previewImage: 'img/apartment-03.jpg',
+    description:
+      'A cozy apartment with a big bed, soft light and everything for a good stay.',
+    bedrooms: 2,
+    goods: ['Wi-Fi', 'Heating', 'Dishwasher'],
+    host: {
+      name: 'Max',
+      avatarUrl: 'img/avatar-max.jpg',
+      isPro: false,
+    },
+    images: [
+      'img/apartment-03.jpg',
+      'img/apartment-02.jpg',
+      'img/studio-01.jpg',
+    ],
+    maxAdults: 4,
   },
 ];
 

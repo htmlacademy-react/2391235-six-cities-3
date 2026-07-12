@@ -38,6 +38,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <Map
                 offers={offers}
                 activeOfferId={activeOfferId}
+                className="cities__map map"
               />
             </div>
           </div>

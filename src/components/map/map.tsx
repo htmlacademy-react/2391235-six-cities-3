@@ -19,30 +19,31 @@ const activeCustomIcon = leaflet.icon({
 type MapProps = {
   offers: OfferPreview[];
   activeOfferId?: string | null;
+  className: string;
 };
 
-function Map({ offers, activeOfferId }: MapProps): JSX.Element {
+function Map({ offers, activeOfferId, className }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement | null>(null);
+
+  const cityLocation = offers[0].city.location;
 
   const map = useMap(
     mapRef,
-    offers[0].city.location
+    cityLocation
   );
-
-  const city = offers[0].city.location;
 
   useEffect(() => {
 
     if (map) {
       map.setView(
         [
-          city.latitude,
-          city.longitude,
+          cityLocation.latitude,
+          cityLocation.longitude,
         ],
-        city.zoom
+        cityLocation.zoom
       );
     }
-  }, [map, city]);
+  }, [map, cityLocation]);
 
   useEffect(() => {
     if (map) {
@@ -66,14 +67,14 @@ function Map({ offers, activeOfferId }: MapProps): JSX.Element {
       });
 
       return () => {
-        markerLayer.clearLayers();
+        map.removeLayer(markerLayer);
       };
     }
   }, [map, offers, activeOfferId]);
 
   return (
     <section
-      className="cities__map map"
+      className={className}
       ref={mapRef}
     >
     </section>
